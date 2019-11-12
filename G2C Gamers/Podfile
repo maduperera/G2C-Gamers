@@ -7,6 +7,7 @@ target 'G2C Gamers' do
 
   # Pods for G2C Gamers
   pod 'Moya', '~> 13.0'
+  pod 'Kingfisher', '~> 5.9'
 
   target 'G2C GamersTests' do
     inherit! :search_paths
