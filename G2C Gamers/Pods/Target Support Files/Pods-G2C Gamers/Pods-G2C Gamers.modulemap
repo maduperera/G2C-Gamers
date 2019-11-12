@@ -1,0 +1,6 @@
+framework module Pods_G2C_Gamers {
+  umbrella header "Pods-G2C Gamers-umbrella.h"
+
+  export *
+  module * { export * }
+}

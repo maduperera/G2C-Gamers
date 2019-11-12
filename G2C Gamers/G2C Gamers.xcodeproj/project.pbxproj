@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050838682DBAFA4E860D0641 /* Pods_G2C_Gamers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 161FE788781DF31C9EAE46C8 /* Pods_G2C_Gamers.framework */; };
 		25FE5CB3237836B5001C8244 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE5CB2237836B5001C8244 /* AppDelegate.swift */; };
 		25FE5CB5237836B5001C8244 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE5CB4237836B5001C8244 /* ViewController.swift */; };
 		25FE5CB8237836B5001C8244 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25FE5CB6237836B5001C8244 /* Main.storyboard */; };
@@ -14,6 +15,8 @@
 		25FE5CBD237836B8001C8244 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25FE5CBB237836B8001C8244 /* LaunchScreen.storyboard */; };
 		25FE5CC8237836B9001C8244 /* G2C_GamersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE5CC7237836B9001C8244 /* G2C_GamersTests.swift */; };
 		25FE5CD3237836B9001C8244 /* G2C_GamersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE5CD2237836B9001C8244 /* G2C_GamersUITests.swift */; };
+		41C0A1613B73777D2D33F12C /* Pods_G2C_GamersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7600400FE8A5EC46C7758B /* Pods_G2C_GamersTests.framework */; };
+		8EBDD74258AE7DF4EF78FE15 /* Pods_G2C_GamersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272C4FA5371E9508D07A6E98 /* Pods_G2C_GamersUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		161FE788781DF31C9EAE46C8 /* Pods_G2C_Gamers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_G2C_Gamers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25FE5CAF237836B5001C8244 /* G2C Gamers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "G2C Gamers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25FE5CB2237836B5001C8244 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25FE5CB4237836B5001C8244 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +51,14 @@
 		25FE5CCE237836B9001C8244 /* G2C GamersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "G2C GamersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25FE5CD2237836B9001C8244 /* G2C_GamersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = G2C_GamersUITests.swift; sourceTree = "<group>"; };
 		25FE5CD4237836B9001C8244 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		272C4FA5371E9508D07A6E98 /* Pods_G2C_GamersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_G2C_GamersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A7600400FE8A5EC46C7758B /* Pods_G2C_GamersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_G2C_GamersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F3BE406480E69572F7607A7 /* Pods-G2C Gamers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G2C Gamers.release.xcconfig"; path = "Target Support Files/Pods-G2C Gamers/Pods-G2C Gamers.release.xcconfig"; sourceTree = "<group>"; };
+		9280D261AB53E7A8F2AC1143 /* Pods-G2C GamersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G2C GamersUITests.debug.xcconfig"; path = "Target Support Files/Pods-G2C GamersUITests/Pods-G2C GamersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A3FB7BDDA4C2B05723AD873B /* Pods-G2C GamersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G2C GamersTests.release.xcconfig"; path = "Target Support Files/Pods-G2C GamersTests/Pods-G2C GamersTests.release.xcconfig"; sourceTree = "<group>"; };
+		BE512BEFD485EF28551A88F2 /* Pods-G2C GamersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G2C GamersUITests.release.xcconfig"; path = "Target Support Files/Pods-G2C GamersUITests/Pods-G2C GamersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C8DB5A481C764EC1A9B1C00D /* Pods-G2C GamersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G2C GamersTests.debug.xcconfig"; path = "Target Support Files/Pods-G2C GamersTests/Pods-G2C GamersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F5EB33AC559449AA8B58922C /* Pods-G2C Gamers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-G2C Gamers.debug.xcconfig"; path = "Target Support Files/Pods-G2C Gamers/Pods-G2C Gamers.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050838682DBAFA4E860D0641 /* Pods_G2C_Gamers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41C0A1613B73777D2D33F12C /* Pods_G2C_GamersTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EBDD74258AE7DF4EF78FE15 /* Pods_G2C_GamersUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +96,8 @@
 				25FE5CC6237836B9001C8244 /* G2C GamersTests */,
 				25FE5CD1237836B9001C8244 /* G2C GamersUITests */,
 				25FE5CB0237836B5001C8244 /* Products */,
+				D9920F809E030BB4A3294831 /* Pods */,
+				2DEDDB720FC32F07E68CFCD7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +142,30 @@
 			path = "G2C GamersUITests";
 			sourceTree = "<group>";
 		};
+		2DEDDB720FC32F07E68CFCD7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				161FE788781DF31C9EAE46C8 /* Pods_G2C_Gamers.framework */,
+				7A7600400FE8A5EC46C7758B /* Pods_G2C_GamersTests.framework */,
+				272C4FA5371E9508D07A6E98 /* Pods_G2C_GamersUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9920F809E030BB4A3294831 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F5EB33AC559449AA8B58922C /* Pods-G2C Gamers.debug.xcconfig */,
+				7F3BE406480E69572F7607A7 /* Pods-G2C Gamers.release.xcconfig */,
+				C8DB5A481C764EC1A9B1C00D /* Pods-G2C GamersTests.debug.xcconfig */,
+				A3FB7BDDA4C2B05723AD873B /* Pods-G2C GamersTests.release.xcconfig */,
+				9280D261AB53E7A8F2AC1143 /* Pods-G2C GamersUITests.debug.xcconfig */,
+				BE512BEFD485EF28551A88F2 /* Pods-G2C GamersUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +173,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25FE5CD7237836B9001C8244 /* Build configuration list for PBXNativeTarget "G2C Gamers" */;
 			buildPhases = (
+				97B391D049397A461463EC5B /* [CP] Check Pods Manifest.lock */,
 				25FE5CAB237836B5001C8244 /* Sources */,
 				25FE5CAC237836B5001C8244 /* Frameworks */,
 				25FE5CAD237836B5001C8244 /* Resources */,
+				6910F80EF38FDE9A88B6EF90 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,6 +192,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25FE5CDA237836B9001C8244 /* Build configuration list for PBXNativeTarget "G2C GamersTests" */;
 			buildPhases = (
+				5253297910377D1990EAC07D /* [CP] Check Pods Manifest.lock */,
 				25FE5CBF237836B9001C8244 /* Sources */,
 				25FE5CC0237836B9001C8244 /* Frameworks */,
 				25FE5CC1237836B9001C8244 /* Resources */,
@@ -167,6 +211,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25FE5CDD237836B9001C8244 /* Build configuration list for PBXNativeTarget "G2C GamersUITests" */;
 			buildPhases = (
+				F848445A596D9C546CECF48E /* [CP] Check Pods Manifest.lock */,
 				25FE5CCA237836B9001C8244 /* Sources */,
 				25FE5CCB237836B9001C8244 /* Frameworks */,
 				25FE5CCC237836B9001C8244 /* Resources */,
@@ -250,6 +295,92 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5253297910377D1990EAC07D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-G2C GamersTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6910F80EF38FDE9A88B6EF90 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-G2C Gamers/Pods-G2C Gamers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-G2C Gamers/Pods-G2C Gamers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-G2C Gamers/Pods-G2C Gamers-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97B391D049397A461463EC5B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-G2C Gamers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F848445A596D9C546CECF48E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-G2C GamersUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25FE5CAB237836B5001C8244 /* Sources */ = {
@@ -430,6 +561,7 @@
 		};
 		25FE5CD8237836B9001C8244 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5EB33AC559449AA8B58922C /* Pods-G2C Gamers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -447,6 +579,7 @@
 		};
 		25FE5CD9237836B9001C8244 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F3BE406480E69572F7607A7 /* Pods-G2C Gamers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -464,6 +597,7 @@
 		};
 		25FE5CDB237836B9001C8244 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8DB5A481C764EC1A9B1C00D /* Pods-G2C GamersTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -484,6 +618,7 @@
 		};
 		25FE5CDC237836B9001C8244 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3FB7BDDA4C2B05723AD873B /* Pods-G2C GamersTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -504,6 +639,7 @@
 		};
 		25FE5CDE237836B9001C8244 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9280D261AB53E7A8F2AC1143 /* Pods-G2C GamersUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -523,6 +659,7 @@
 		};
 		25FE5CDF237836B9001C8244 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE512BEFD485EF28551A88F2 /* Pods-G2C GamersUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'G2C Gamers' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for G2C Gamers
+  pod 'Moya', '~> 13.0'
+
+  target 'G2C GamersTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'G2C GamersUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
