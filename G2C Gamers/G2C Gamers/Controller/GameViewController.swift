@@ -26,13 +26,23 @@ class GameViewController: UIViewController {
             switch state {
             case .ready:
                 print(".ready")
+                //viewMessage.isHidden = true
                 tblGames.isHidden = false
                 tblGames.reloadData()
             case .loading:
                 print(".loading")
+                //viewMessage.isHidden = false
                 tblGames.isHidden = true
+                //lblMessege.text = "Getting games ..."
+                //imgLoading.image = #imageLiteral(resourceName: "mario")
             case .error:
                 print(".error")
+                //viewMessage.isHidden = false
+                //lblMessege.text = """
+//                Something went wrong!
+//                Try again later.
+//                """
+//                imgLoading.image = #imageLiteral(resourceName: "mario")
                 //tblGames.isHidden = true
             }
         }
@@ -40,7 +50,9 @@ class GameViewController: UIViewController {
     
     
     @IBOutlet weak var tblGames: UITableView!
-    
+    @IBOutlet weak var lblMessege: UILabel!
+    @IBOutlet weak var imgLoading: UIImageView!
+    @IBOutlet weak var viewMessage: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +62,9 @@ class GameViewController: UIViewController {
         searchBar = navigationItem.searchController?.searchBar
         searchBar?.placeholder = "Search for the games"
         searchBar?.delegate = self
+//        navigationItem.searchController?.dismiss(animated: false) {
+//             self.navigationController?.pushViewController(UIViewController(), animated: true)
+//        }
         
         // we are using min OS 11, but to be sure if the search doesnt give bad side effects
         if #available(iOS 9.1, *) {
@@ -207,8 +222,8 @@ extension GameViewController: UISearchBarDelegate{
         guard case .ready(var items) = self.state else { return }
         items.removeAll()
         self.state = .ready(items)
-        
-        // fetch game serach data
+        page = 1
+        // fetch game search data
         provider.request(.nextGames(pageSize:pageSize, page:page, searchString:searchText)) { [weak self] result in
             guard let self = self else { return }
             
@@ -217,11 +232,6 @@ extension GameViewController: UISearchBarDelegate{
                 do {
                     let arr = try response.map(GameRsults<Game>.self).results
                     self.state = .ready(arr)
-                    if(arr.count == 0){
-                        self.searchActive = false;
-                    } else {
-                        self.searchActive = true;
-                    }
                 } catch {
                     self.state = .error
                 }
@@ -229,6 +239,5 @@ extension GameViewController: UISearchBarDelegate{
                 self.state = .error
             }
         }
-        
     }
 }
