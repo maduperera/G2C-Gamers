@@ -219,7 +219,9 @@ extension GameViewController: UISearchBarDelegate{
         guard case .ready(var items) = self.state else { return }
         items.removeAll()
         self.state = .ready(items)
+        // make ready for next fetch reseting to defaults
         page = 1
+        isFetching = false
         // fetch game search data
         provider.request(.nextGames(pageSize:pageSize, page:page, searchString:searchText)) { [weak self] result in
             guard let self = self else { return }
