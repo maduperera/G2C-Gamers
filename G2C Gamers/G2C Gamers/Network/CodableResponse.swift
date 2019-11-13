@@ -8,6 +8,10 @@
 
 import Foundation
 
-struct GameResponse<T: Codable>: Codable {
+struct GameRsults<T: Codable>: Codable {
     let results: [T]
+}
+
+struct GameResponse<T: Codable>: Codable {
+    let genres: GameRsults<T>
 }

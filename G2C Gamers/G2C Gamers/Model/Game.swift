@@ -9,8 +9,18 @@
 import Foundation
 
 struct Game: Codable {
-    let id: Int
-    let name: String
-    let metacritic: Int
+    let id: Int?
+    let name: String?
+    let metacritic: Int?
     let background_image: String?
+    let genres: [Genre]?
 }
+
+extension Game{
+    struct Genre: Codable {
+        let id: Int?
+        let name: String?
+        let slug: String?
+    }
+}
+

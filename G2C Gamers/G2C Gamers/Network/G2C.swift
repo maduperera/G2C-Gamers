@@ -11,7 +11,8 @@ import Moya
 
 public enum G2C {
     case games
-    case nextGames(nextPath:String)
+    case nextGames(pageSize:Int, page:Int, searchString:String?)
+    case next(path: String)
 }
 
 extension G2C: TargetType {
@@ -23,10 +24,10 @@ extension G2C: TargetType {
     public var path: String {
         switch self {
         case .games: return "/games"
-        case .nextGames(let nextPath):
-            print("passed : \(nextPath)")
-            //return nextPath
+        case .nextGames( _, _, _):
             return "/games"
+        case .next(let path):
+            return path
         }
     }
     
@@ -34,6 +35,7 @@ extension G2C: TargetType {
         switch self {
         case .games: return .get
         case .nextGames: return .get
+        case .next: return .get
         }
     }
     
@@ -53,12 +55,23 @@ extension G2C: TargetType {
                         "page_size": "10",
                         "page": "1"],
                     encoding: URLEncoding.default)
-            case .nextGames:
+            case .nextGames(let pageSize, let page, let searchString):
+                if let searchString = searchString{
+                    return .requestParameters(
+                        parameters: [
+                            "page_size": pageSize,
+                            "page": page,
+                            "search": searchString] ,
+                        encoding: URLEncoding.default)
+                }
                 return .requestParameters(
                     parameters: [
-                        "page_size": "10",
-                        "page": "2"],
+                        "page_size": pageSize,
+                        "page": page],
                     encoding: URLEncoding.default)
+        
+            case .next:
+                return .requestPlain
         }
         
     }

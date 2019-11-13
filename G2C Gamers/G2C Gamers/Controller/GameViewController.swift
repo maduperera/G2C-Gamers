@@ -14,6 +14,10 @@ class GameViewController: UIViewController {
     let provider = MoyaProvider<G2C>()
     var nextPagePath : String?
     var isFetching = false
+    let pageSize = 10 // default
+    var page = 1 // default page starts at 1
+    var searchBar:UISearchBar?
+    var searchActive = false
     
     // MARK: - View State
     private var state: State = .loading {
@@ -42,7 +46,9 @@ class GameViewController: UIViewController {
         // add search bar to the navigation bar
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.hidesSearchBarWhenScrolling = false
-        navigationItem.searchController?.searchBar.placeholder = "Search for the games"
+        searchBar = navigationItem.searchController?.searchBar
+        searchBar?.placeholder = "Search for the games"
+        searchBar?.delegate = self
         
         state = .loading
         
@@ -58,9 +64,14 @@ class GameViewController: UIViewController {
                         print("NEXT : \(next)")
                         self.nextPagePath = next
                     }
+                    self.state = .ready(try response.map(GameRsults<Game>.self).results)
                     
-                    self.state = .ready(try response.map(GameResponse<Game>.self).results)
-                
+                    // -------------------------------
+                    
+                    
+                    // -------------------------------
+                    
+                    self.page = self.page + 1
                 } catch {
                     self.state = .error
                 }
@@ -86,13 +97,30 @@ extension GameViewController {
 extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell ?? GameCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell ?? GameCell()
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier) as! GameCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier) as! GameCell
         
         guard case .ready(let items) = state else { return cell }
         
         cell.configureWith(items[indexPath.item])
+        
+        // -------------------------------
+        
+        //print("genre : \(items[indexPath.item].genres)")
+        
+        guard let genress = items[indexPath.item].genres else {return cell}
+        
+        let genres:[Game.Genre] = genress
+        let names = genres.map({ (genre) -> String in
+            return genre.name ?? ""
+            })
+        
+        let list = names.joined(separator: ", ")
+        print("genres: \(list)")
+        // -------------------------------
+        
+        
         
         return cell
     }
@@ -106,68 +134,50 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard case .ready(let items) = state, let nextPath = nextPagePath else { return }
-        let last = items.count - 1
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
 
-        if indexPath.row == last{
-            print("indexPath.row == last")
-            print(isFetching)
+        guard let nextPath = nextPagePath else { return }
+        if offsetY > contentHeight - scrollView.frame.height * 4{
             if !isFetching{
                 fetchNextPage(nextPath: nextPath)
             }
         }
     }
     
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        guard case .ready(let items) = state, let nextPath = nextPagePath else { return }
-//        let last = items.count - 1
-//
-//        if indexPath.row == last{
-//            fetchNextPage(nextPath: nextPath)
-//        }
-//    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//
-//        if offsetY > contentHeight - scrollView.frame.height{
-//            if !isFetching{
-//                fetchNextPage(nextPath: "")
-//            }
-//        }
-    }
-    
     
     func fetchNextPage(nextPath next:String){
         isFetching = true
-        print("fetch")
-        guard let nextPath = next.components(separatedBy: "io/api").last else {return}
-//        print("splitted next : \(next.components(separatedBy: "io/api").last!)")
+
+        //TODO: nice if we can fetch using next path given. Needs to find a way to send Moya string params as it is
+        //guard let nextPath = next.components(separatedBy: "io/api").last else {return}
+        //print("splitted next : \(next.components(separatedBy: "io/api").last!)")
         
-        // fetch game data from next page
-        provider.request(.nextGames(nextPath: nextPath)) { [weak self] result in
+        //fetch game data from next page
+        
+        provider.request(.nextGames(pageSize:pageSize, page:page, searchString:nil)) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(let response):
                 do {
-                    let json = try response.mapJSON()
-                    if let json = json as? [String: Any], let next = json["next"] as? String {
-                        print("NEXT : \(next)")
-                        self.nextPagePath = next
-                    }
-
-                    self.state = .ready(try response.map(GameResponse<Game>.self).results)
                     self.isFetching = false
-
+                    guard case .ready(var items) = self.state else { return }
+                    let arr: [Game] = try response.map(GameRsults<Game>.self).results
+                    // if the page doesnt have any Game details move on to the next
+                    if arr.count == 0 {return}
+                    items.append(contentsOf: arr)
+                    self.state = .ready(items)
+                    print("success page number : \(self.page)")
+                    self.page = self.page + 1
                 } catch {
-                    self.state = .error
+                    print("we can safely ignore this")
                 }
             case .failure:
-                self.state = .error
+                print("out of content")
             }
+            
         }
     }
     
@@ -181,3 +191,73 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+extension GameViewController: UISearchBarDelegate{
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+        guard case .ready(var items) = self.state else { return }
+        items.removeAll()
+        self.state = .ready(items)
+        page = 1
+        fetchNextPage(nextPath: "")
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+//        filtered = data.filter({ (text) -> Bool in
+//            let tmp: NSString = text
+//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+//            return range.location != NSNotFound
+//        })
+//        if(filtered.count == 0){
+//            searchActive = false;
+//        } else {
+//            searchActive = true;
+//        }
+//        self.tableView.reloadData()
+        print("searchText:\(searchText)")
+        // fetch game data
+        provider.request(.nextGames(pageSize:pageSize, page:page, searchString:searchText)) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
+                do {
+                    let arr = try response.map(GameRsults<Game>.self).results
+                    self.state = .ready(arr)
+                    
+                    // -------------------------------
+                    if(arr.count == 0){
+                        self.searchActive = false;
+                    } else {
+                        self.searchActive = true;
+                    }
+                    
+                    // -------------------------------
+                    
+                } catch {
+                    self.state = .error
+                }
+            case .failure:
+                self.state = .error
+            }
+        }
+        
+        
+        
+        
+    }
+}

@@ -19,14 +19,26 @@ class GameCell: UITableViewCell {
     @IBOutlet weak var lblGenere: UILabel!
     
     public func configureWith(_ game: Game) {
-        lblTitle.text = game.name
-        lblMetaCriticsCount.text = String(game.metacritic)
-        
+        if let name = game.name{
+            lblTitle.text = name
+        }
+        if let metacritic = game.metacritic{
+            lblMetaCriticsCount.text = String(metacritic)
+        }
         guard let imagePath = game.background_image else {return}
         imgThumb.kf.setImage(with: URL(string: imagePath),
                              options: [.transition(.fade(0.3))])
         
+        guard let genres = game.genres else {return}
+        lblGenere.text = aggregateGenres(genres: genres)
         
     }
+    
+    // aggregate the genres to one line
+    func aggregateGenres(genres: [Game.Genre]) -> String{
+        let names = genres.map({ $0.name ?? "" })
+        return names.joined(separator: ", ")
+    }
+    
 }
 
