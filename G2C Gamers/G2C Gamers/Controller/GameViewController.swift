@@ -18,6 +18,7 @@ class GameViewController: UIViewController {
     var page = 1 // default page starts at 1
     var searchBar:UISearchBar?
     var searchActive = false
+    var searchString = ""
     
     // MARK: - View State
     private var state: State = .loading {
@@ -32,7 +33,7 @@ class GameViewController: UIViewController {
                 tblGames.isHidden = true
             case .error:
                 print(".error")
-                tblGames.isHidden = true
+                //tblGames.isHidden = true
             }
         }
     }
@@ -50,6 +51,13 @@ class GameViewController: UIViewController {
         searchBar?.placeholder = "Search for the games"
         searchBar?.delegate = self
         
+        // we are using min OS 11, but to be sure if the search doesnt give bad side effects
+        if #available(iOS 9.1, *) {
+            navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+        } else {
+            navigationItem.searchController?.dimsBackgroundDuringPresentation = false
+        }
+        
         state = .loading
         
         // fetch game data
@@ -65,12 +73,6 @@ class GameViewController: UIViewController {
                         self.nextPagePath = next
                     }
                     self.state = .ready(try response.map(GameRsults<Game>.self).results)
-                    
-                    // -------------------------------
-                    
-                    
-                    // -------------------------------
-                    
                     self.page = self.page + 1
                 } catch {
                     self.state = .error
@@ -99,29 +101,8 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell ?? GameCell()
         
-//        let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier) as! GameCell
-        
         guard case .ready(let items) = state else { return cell }
-        
         cell.configureWith(items[indexPath.item])
-        
-        // -------------------------------
-        
-        //print("genre : \(items[indexPath.item].genres)")
-        
-        guard let genress = items[indexPath.item].genres else {return cell}
-        
-        let genres:[Game.Genre] = genress
-        let names = genres.map({ (genre) -> String in
-            return genre.name ?? ""
-            })
-        
-        let list = names.joined(separator: ", ")
-        print("genres: \(list)")
-        // -------------------------------
-        
-        
-        
         return cell
     }
     
@@ -156,7 +137,13 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
         
         //fetch game data from next page
         
-        provider.request(.nextGames(pageSize:pageSize, page:page, searchString:nil)) { [weak self] result in
+        var searchText: String?
+        
+        if searchActive  {
+            searchText = searchString
+        }
+        
+        provider.request(.nextGames(pageSize:pageSize, page:page, searchString:searchText)) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -182,9 +169,6 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: indexPath, animated: false)
-        guard case .ready(let items) = state else { return }
-        
         let gameDetailsVC = GameDetailsViewController.instantiate()
         navigationController?.pushViewController(gameDetailsVC, animated: true)
         
@@ -195,11 +179,15 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
 extension GameViewController: UISearchBarDelegate{
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true;
+        searchActive = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false;
+        searchActive = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
         guard case .ready(var items) = self.state else { return }
         items.removeAll()
         self.state = .ready(items)
@@ -207,29 +195,20 @@ extension GameViewController: UISearchBarDelegate{
         fetchNextPage(nextPath: "")
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
+        searchActive = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchActive = true
+        searchString = searchText
+        // search querry needs to be at least 4 letter word
+        if searchText.count < 4 { return }
+        guard case .ready(var items) = self.state else { return }
+        items.removeAll()
+        self.state = .ready(items)
         
-//        filtered = data.filter({ (text) -> Bool in
-//            let tmp: NSString = text
-//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-//            return range.location != NSNotFound
-//        })
-//        if(filtered.count == 0){
-//            searchActive = false;
-//        } else {
-//            searchActive = true;
-//        }
-//        self.tableView.reloadData()
-        print("searchText:\(searchText)")
-        // fetch game data
+        // fetch game serach data
         provider.request(.nextGames(pageSize:pageSize, page:page, searchString:searchText)) { [weak self] result in
             guard let self = self else { return }
             
@@ -238,16 +217,11 @@ extension GameViewController: UISearchBarDelegate{
                 do {
                     let arr = try response.map(GameRsults<Game>.self).results
                     self.state = .ready(arr)
-                    
-                    // -------------------------------
                     if(arr.count == 0){
                         self.searchActive = false;
                     } else {
                         self.searchActive = true;
                     }
-                    
-                    // -------------------------------
-                    
                 } catch {
                     self.state = .error
                 }
@@ -255,9 +229,6 @@ extension GameViewController: UISearchBarDelegate{
                 self.state = .error
             }
         }
-        
-        
-        
         
     }
 }
