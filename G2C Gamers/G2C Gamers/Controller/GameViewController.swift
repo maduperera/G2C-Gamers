@@ -229,6 +229,7 @@ extension GameViewController: UISearchBarDelegate{
                 do {
                     let arr = try response.map(GameRsults<Game>.self).results
                     self.state = .ready(arr)
+                    self.page = self.page + 1
                 } catch {
                     self.state = .error
                 }
