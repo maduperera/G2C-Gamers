@@ -62,9 +62,6 @@ class GameViewController: UIViewController {
         searchBar = navigationItem.searchController?.searchBar
         searchBar?.placeholder = "Search for the games"
         searchBar?.delegate = self
-//        navigationItem.searchController?.dismiss(animated: false) {
-//             self.navigationController?.pushViewController(UIViewController(), animated: true)
-//        }
         
         // we are using min OS 11, but to be sure if the search doesnt give bad side effects
         if #available(iOS 9.1, *) {
