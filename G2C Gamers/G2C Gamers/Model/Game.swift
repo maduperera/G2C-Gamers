@@ -15,6 +15,9 @@ struct Game: Codable {
     let background_image: String?
     let genres: [Genre]?
     let favourite = false
+    var description: String?
+    var webUrl: String?
+    var redditUrl: String?
 }
 
 extension Game{

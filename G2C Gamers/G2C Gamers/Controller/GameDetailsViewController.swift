@@ -46,6 +46,9 @@ class GameDetailsViewController: UIViewController {
         fetchGameDetails()
         // remove unwanted cells in the table
         tblDetails.tableFooterView = UIView()
+        
+        tblDetails.estimatedRowHeight = 100
+        tblDetails.rowHeight = UITableView.automaticDimension
     }
     
     func fetchGameDetails(){
@@ -58,23 +61,18 @@ class GameDetailsViewController: UIViewController {
                         let json = try response.mapJSON()
                         if let json = json as? [String: Any]{
             
-                            let description:String? = json["description_raw"] as? String ?? ""
-                            let webAddress:String? = json["website"] as? String ?? ""
-                            let redditAddress:String? = json["reddit_url"] as? String ?? ""
-                            
-                            print("NEXT : \(json)")
-                            print("NEXT : \(description ?? "")")
-                            print("NEXT : \(webAddress ?? "")")
-                            print("NEXT : \(redditAddress ?? "")")
-                        
-                           
+                            print("desc : \(json["description_raw"] as? String ?? "")")
+                            self.game?.description = json["description_raw"] as? String ?? ""
+                            self.game?.webUrl = json["website"] as? String ?? ""
+                            self.game?.redditUrl = json["reddit_url"] as? String ?? ""
+                            self.tblDetails.reloadData()
                         }
                 
                     } catch {
-                        print("error")
+                        print("json parse error")
                     }
                 case .failure:
-                    print("error")
+                    print("Network error")
             }
         }
     }
@@ -119,20 +117,22 @@ extension GameDetailsViewController {
     //    }
 }
 
+extension GameDetailsViewController: LoadMoreDelegate{
+    func moreTapped(cell: GameDescriptionCell) {
+        tblDetails.beginUpdates()
+        tblDetails.endUpdates()
+    }
+}
+
 
 extension GameDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cellGameDescription", for: indexPath) as? GameCell ?? GameCell()
-//
-//        //cell.configureWith(items[indexPath.item])
-//        return cell
-        
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        cell.textLabel?.text = "Description" + String(items[indexPath.row])
-        cell.detailTextLabel?.text = "Rockstar Games went bigger, since their previous installment of the series. You get the complicated and realistic world-building from Liberty City of GTA4 in the setting of lively and diverse Los Santos, from an old fan favorite GTA San Andreas. 561 different vehicles (including every transport you can operate) and the amount is rising with every update. \r\nSimultaneous storytelling from three unique perspectives: \r\nFollow Michael, ex-criminal living his life of leisure away from the past, Franklin, a kid that seeks the better future, and Trevor, the exact past Michael is trying to run away from. \r\nGTA Online will provide a lot of additional challenge even for the experienced players, coming fresh from the story mode. Now you will have other players around that can help you just as likely as ruin your mission. Every GTA mechanic up to date can be experienced by players through the unique customizable character, and community content paired with the leveling system tends to keep everyone busy and engaged."
-        
-        cell.detailTextLabel?.numberOfLines = 4
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GameDescriptionCell", for: indexPath) as? GameDescriptionCell ?? GameDescriptionCell()
+        guard let game = game else {return cell}
+        cell.configureWith(game)
+        cell.delegate = self
+//        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
         
        return cell
     }
