@@ -13,6 +13,7 @@ public enum G2C {
     case games
     case nextGames(pageSize:Int, page:Int, searchString:String?)
     case next(path: String)
+    case gameDetails(id: Int)
 }
 
 extension G2C: TargetType {
@@ -28,14 +29,14 @@ extension G2C: TargetType {
             return "/games"
         case .next(let path):
             return path
+        case .gameDetails(let id):
+            return "/games/" + String(id)
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .games: return .get
-        case .nextGames: return .get
-        case .next: return .get
+            case .games, .nextGames, .next, .gameDetails: return .get
         }
     }
     
@@ -72,6 +73,11 @@ extension G2C: TargetType {
         
             case .next:
                 return .requestPlain
+        case .gameDetails(let id):
+            return .requestPlain
+//            return .requestParameters(
+//                parameters: ["": id],
+//                encoding: URLEncoding.default)
         }
         
     }

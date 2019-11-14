@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import SQLite
 
 class GameViewController: UIViewController {
 
@@ -63,6 +64,8 @@ class GameViewController: UIViewController {
         searchBar?.placeholder = "Search for the games"
         searchBar?.delegate = self
         
+        testdb()
+        
         // we are using min OS 11, but to be sure if the search doesnt give bad side effects
         if #available(iOS 9.1, *) {
             navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
@@ -95,6 +98,45 @@ class GameViewController: UIViewController {
         }
     }
     
+}
+
+
+func testdb(){
+    do{
+        
+        let documentDerectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create:true)
+        let fileUrl = documentDerectory.appendingPathComponent("users").appendingPathExtension("sqlite3")
+        
+        
+    let db = try Connection(fileUrl.path)
+    
+    let users = Table("users")
+    let id = Expression<Int64>("id")
+    let name = Expression<String?>("name")
+    let email = Expression<String>("email")
+    
+    try db.run(users.create { t in
+        t.column(id, primaryKey: true)
+        t.column(name)
+        t.column(email, unique: true)
+    })
+    // CREATE TABLE "users" (
+    //     "id" INTEGER PRIMARY KEY NOT NULL,
+    //     "name" TEXT,
+    //     "email" TEXT NOT NULL UNIQUE
+    // )
+    
+    let insert = users.insert(name <- "Alice", email <- "alice@mac.com")
+    let rowid = try db.run(insert)
+    // INSERT INTO "users" ("name", "email") VALUES ('Alice', 'alice@mac.com')
+    
+    for user in try db.prepare(users) {
+        print("id: \(user[id]), name: \(user[name]), email: \(user[email])")
+        // id: 1, name: Optional("Alice"), email: alice@mac.com
+    }
+    }catch{
+        print("db error")
+    }
 }
 
 
@@ -182,6 +224,8 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let gameDetailsVC = GameDetailsViewController.instantiate()
+        guard case .ready(var items) = self.state else { return }
+        gameDetailsVC.inititialize(game: items[indexPath.item])
         navigationController?.pushViewController(gameDetailsVC, animated: true)
         
     }

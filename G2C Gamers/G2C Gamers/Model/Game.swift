@@ -14,6 +14,7 @@ struct Game: Codable {
     let metacritic: Int?
     let background_image: String?
     let genres: [Genre]?
+    let favourite = false
 }
 
 extension Game{
