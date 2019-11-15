@@ -14,7 +14,6 @@ class GameDetailsViewController: UIViewController {
     var favouriteBarButtonItem: UIBarButtonItem?
     var game: Game?
     var provider = MoyaProvider<G2C>()
-    let items = [1,2,3]
     
     enum Preference{
         case favourite
@@ -36,6 +35,7 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var imgGame: UIImageView!
     @IBOutlet weak var tblDetails: UITableView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // by default not being favourite
@@ -47,8 +47,9 @@ class GameDetailsViewController: UIViewController {
         // remove unwanted cells in the table
         tblDetails.tableFooterView = UIView()
         
-        tblDetails.estimatedRowHeight = 100
-        tblDetails.rowHeight = UITableView.automaticDimension
+        // hide back button till everything loads
+        //self.navigationItem.setHidesBackButton(true, animated:true);
+        
     }
     
     func fetchGameDetails(){
@@ -66,6 +67,13 @@ class GameDetailsViewController: UIViewController {
                             self.game?.webUrl = json["website"] as? String ?? ""
                             self.game?.redditUrl = json["reddit_url"] as? String ?? ""
                             self.tblDetails.reloadData()
+                            
+                            guard let imagePath = self.game?.background_image else {return}
+                            self.imgGame.kf.setImage(with: URL(string: imagePath),
+                                                 options: [.transition(.fade(0.3))])
+                            // show back button after everything loads
+                            //self.navigationItem.setHidesBackButton(false, animated:true);
+                            
                         }
                 
                     } catch {
@@ -128,12 +136,31 @@ extension GameDetailsViewController: LoadMoreDelegate{
 extension GameDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GameDescriptionCell", for: indexPath) as? GameDescriptionCell ?? GameDescriptionCell()
-        guard let game = game else {return cell}
-        cell.configureWith(game)
-        cell.delegate = self
-//        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        
+        var cell:UITableViewCell
+        switch indexPath.row{
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: "GameDescriptionCell", for: indexPath) as? GameDescriptionCell ?? GameDescriptionCell()
+            let desCell = cell as? GameDescriptionCell
+            guard let game = game else {return desCell!}
+            desCell?.configureWith(game)
+            desCell?.delegate = self
+            return desCell ?? GameDescriptionCell()
+        case 1:
+            cell = tableView.dequeueReusableCell(withIdentifier: "GameWebPageCell", for: indexPath) as? GameWebPageCell ?? GameWebPageCell()
+            let webCell = cell as? GameWebPageCell
+            guard let game = game else {return webCell!}
+            webCell?.configureWith(url:game.redditUrl, title: "Visit reddit")
+            return webCell ?? GameWebPageCell()
+        case 2:
+            cell = tableView.dequeueReusableCell(withIdentifier: "GameWebPageCell", for: indexPath) as? GameWebPageCell ?? GameWebPageCell()
+            let webCell = cell as? GameWebPageCell
+            guard let game = game else {return webCell!}
+            webCell?.configureWith(url:game.webUrl, title: "Visit website")
+            return webCell ?? GameWebPageCell()
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        }
+       
        return cell
     }
     
@@ -144,5 +171,6 @@ extension GameDetailsViewController: UITableViewDelegate, UITableViewDataSource 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     
 }

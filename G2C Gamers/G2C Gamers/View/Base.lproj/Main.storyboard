@@ -137,7 +137,7 @@
         <!--Game Details View Controller-->
         <scene sceneID="pd0-fV-Cdu">
             <objects>
-                <viewController storyboardIdentifier="GameDetailsViewController" id="Odl-GB-6Xb" customClass="GameDetailsViewController" customModule="G2C_Gamers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameDetailsViewController" hidesBottomBarWhenPushed="YES" id="Odl-GB-6Xb" customClass="GameDetailsViewController" customModule="G2C_Gamers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oDn-3b-Hfc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,12 +184,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kj-Bm-xer">
-                                                    <rect key="frame" x="15" y="107" width="74" height="27"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="74" id="zKw-me-NTN"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="15" y="107" width="75" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Load more ..."/>
+                                                    <state key="normal" title="Read more ..."/>
                                                     <connections>
                                                         <action selector="loadMore:" destination="8rI-dO-Fxc" eventType="touchUpInside" id="k7J-Kz-c3I"/>
                                                     </connections>
@@ -205,6 +202,7 @@
                                                 <constraint firstItem="OyX-y1-UgS" firstAttribute="top" secondItem="Mmz-ZB-AdX" secondAttribute="bottom" constant="4" id="QSS-YD-3BY"/>
                                                 <constraint firstItem="Mmz-ZB-AdX" firstAttribute="leading" secondItem="OyX-y1-UgS" secondAttribute="leading" id="Sef-69-TRg"/>
                                                 <constraint firstItem="4kj-Bm-xer" firstAttribute="leading" secondItem="OyX-y1-UgS" secondAttribute="leading" id="YWt-Ej-VYc"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4kj-Bm-xer" secondAttribute="trailing" constant="20" symbolic="YES" id="csH-qV-fTt"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="OyX-y1-UgS" secondAttribute="bottom" constant="27" id="ffb-TH-bYI"/>
                                                 <constraint firstItem="OyX-y1-UgS" firstAttribute="leading" secondItem="8Bf-Dp-5cN" secondAttribute="leadingMargin" id="g7L-uy-L7q"/>
                                                 <constraint firstItem="4kj-Bm-xer" firstAttribute="leading" secondItem="8Bf-Dp-5cN" secondAttribute="leadingMargin" id="qUl-Yv-rHz"/>
@@ -216,6 +214,31 @@
                                         <connections>
                                             <outlet property="gameDesc" destination="OyX-y1-UgS" id="eO4-2B-gwa"/>
                                             <outlet property="lblLoadMore" destination="4kj-Bm-xer" id="pqK-xl-O2K"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameWebPageCell" rowHeight="79" id="UyJ-Nh-Sty" userLabel="GameWebPageCell" customClass="GameWebPageCell" customModule="G2C_Gamers" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="178" width="375" height="79"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UyJ-Nh-Sty" id="End-6j-BQE">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="78.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF8-Z3-Llw" userLabel="WebPageLbl">
+                                                    <rect key="frame" x="15" y="11" width="345" height="57"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="fF8-Z3-Llw" secondAttribute="bottom" id="69D-Rq-I89"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fF8-Z3-Llw" secondAttribute="trailing" id="UV0-On-ivs"/>
+                                                <constraint firstItem="fF8-Z3-Llw" firstAttribute="top" secondItem="End-6j-BQE" secondAttribute="topMargin" id="p9m-X9-vhL"/>
+                                                <constraint firstItem="fF8-Z3-Llw" firstAttribute="leading" secondItem="End-6j-BQE" secondAttribute="leadingMargin" id="rWY-Y1-vRw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblWebPage" destination="fF8-Z3-Llw" id="vmX-JA-ARx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -316,6 +339,7 @@
         <!--Games-->
         <scene sceneID="w7K-vI-YfY">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DsN-zP-fdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="Zfv-qr-UTd" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Games" image="game_controller_icon" id="W4R-uo-JaI"/>
@@ -329,7 +353,6 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="E1T-zo-UqL"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DsN-zP-fdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2663.1999999999998" y="124.58770614692655"/>
         </scene>

@@ -225,6 +225,7 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let gameDetailsVC = GameDetailsViewController.instantiate()
         guard case .ready(var items) = self.state else { return }
+        navigationItem.searchController?.isActive = false
         gameDetailsVC.inititialize(game: items[indexPath.item])
         navigationController?.pushViewController(gameDetailsVC, animated: true)
         
@@ -243,12 +244,16 @@ extension GameViewController: UISearchBarDelegate{
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        resetScreen()
+    }
+    
+    func resetScreen(){
         searchActive = false
         guard case .ready(var items) = self.state else { return }
         items.removeAll()
-        self.state = .ready(items)
         page = 1
         fetchNextPage(nextPath: "")
+        self.state = .ready(items)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -284,4 +289,10 @@ extension GameViewController: UISearchBarDelegate{
             }
         }
     }
+    
+    //  inorder to load from page 1 when navigate back to thie page
+    override func viewWillAppear(_ animated: Bool) {
+        resetScreen()
+    }
+    
 }
