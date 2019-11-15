@@ -11,13 +11,15 @@ import Moya
 
 class GameDetailsViewController: UIViewController {
 
-    var favouriteBarButtonItem: UIBarButtonItem?
     var game: Game?
     var provider = MoyaProvider<G2C>()
+    var favouriteBarButtonItem: UIBarButtonItem?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     enum Preference{
         case favourite
         case unfavourite
+        case none
     }
     
     private var preference:Preference = .unfavourite{
@@ -26,6 +28,8 @@ class GameDetailsViewController: UIViewController {
             case .favourite:
                 favouriteBarButtonItem?.title = "Favourited"
             case .unfavourite:
+                favouriteBarButtonItem?.title = "Favourite"
+            case .none:
                 favouriteBarButtonItem?.title = "Favourite"
             }
         }
@@ -103,8 +107,18 @@ class GameDetailsViewController: UIViewController {
         switch preference {
         case .favourite:
             preference = .unfavourite
+            // delete from db
+            guard let id = game?.id else {return}
+            DBHandler.sharedInstance.deleteRow(idVal: id)
+            DBHandler.sharedInstance.readAll()
         case .unfavourite:
             preference = .favourite
+            // write to db
+            guard let game = game else {return}
+            DBHandler.sharedInstance.writeRow(game: game)
+            DBHandler.sharedInstance.readAll()
+        case .none:
+            preference = .none
         }
     }
     

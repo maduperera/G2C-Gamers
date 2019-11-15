@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Game: Codable {
+public struct Game: Codable {
     let id: Int?
     let name: String?
     let metacritic: Int?
@@ -18,13 +18,21 @@ struct Game: Codable {
     var description: String?
     var webUrl: String?
     var redditUrl: String?
+    
+    // aggregate the genres to one line
+    public func aggregateGenres(genres: [Game.Genre]) -> String{
+        let names = genres.map({ $0.name ?? "" })
+        return names.joined(separator: ", ")
+    }
 }
 
 extension Game{
-    struct Genre: Codable {
+    public struct Genre: Codable {
         let id: Int?
         let name: String?
         let slug: String?
     }
 }
+
+
 
