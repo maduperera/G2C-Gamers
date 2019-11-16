@@ -62,7 +62,7 @@ class GameDetailsViewController: UIViewController {
     func fetchGameDetails(){
         // fetch game data
         guard let id = game?.id else {return}
-        provider.request(.gameDetails(id:id)) { result in
+        provider.request(.gameDetails(id:Int64(id))) { result in
             switch result {
                 case .success(let response):
                     do {
@@ -129,20 +129,6 @@ class GameDetailsViewController: UIViewController {
     
 }
 
-
-
-extension GameDetailsViewController {
-    //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    //        return true
-    //    }
-    //
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //        if (editingStyle == .none) {
-    //            // handle delete (by removing the data from your array and updating the tableview)
-    //        }
-    //    }
-}
-
 extension GameDetailsViewController: LoadMoreDelegate{
     func moreTapped(cell: GameDescriptionCell) {
         tblDetails.beginUpdates()
@@ -195,8 +181,8 @@ extension GameDetailsViewController: UITableViewDelegate, UITableViewDataSource 
 
 
 extension GameDetailsViewController{
-    func isFavourite(id:Int) -> Bool{
-        print("favourited: \(DBHandler.sharedInstance.getPreference(gameId: id))")
-        return DBHandler.sharedInstance.getPreference(gameId: id)
+    func isFavourite(id:Int64) -> Bool{
+        print("favourited: \(DBHandler.sharedInstance.getPreference(gameId: Int64(id)))")
+        return DBHandler.sharedInstance.getPreference(gameId: Int64(id))
     }
 }

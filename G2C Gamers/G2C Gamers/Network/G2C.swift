@@ -13,7 +13,7 @@ public enum G2C {
     case games
     case nextGames(pageSize:Int, page:Int, searchString:String?)
     case next(path: String)
-    case gameDetails(id: Int)
+    case gameDetails(id: Int64)
 }
 
 extension G2C: TargetType {

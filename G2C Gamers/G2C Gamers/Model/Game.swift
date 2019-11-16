@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Game: Codable {
-    let id: Int?
+    let id: Int64?
     let name: String?
-    let metacritic: Int?
+    let metacritic: Int64?
     let background_image: String?
     let genres: [Genre]?
     var favourite: Bool?
@@ -21,6 +21,9 @@ public struct Game: Codable {
     
     // aggregate the genres to one line
     public static func aggregateGenres(genres: [Game.Genre]) -> String{
+        if genres.isEmpty {
+            return ""
+        }
         let names = genres.map({ $0.name ?? "" })
         return names.joined(separator: ", ")
     }
