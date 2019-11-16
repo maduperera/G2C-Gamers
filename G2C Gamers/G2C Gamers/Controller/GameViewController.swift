@@ -120,7 +120,20 @@ extension GameViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard case .ready(let items) = state else { return 0 }
+        guard case .ready(let items) = state else {
+            if searchActive{
+                tblGames.isHidden = true
+            }
+            return 0
+        }
+        if searchActive{
+            if items.count == 0 {
+                tblGames.isHidden = true
+            }else{
+                tblGames.isHidden = false
+            }
+        }
+       
         return items.count
     }
     
@@ -216,7 +229,7 @@ extension GameViewController: UISearchBarDelegate{
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
+        searchActive = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

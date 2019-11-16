@@ -23,7 +23,11 @@ class FavouritesViewController: UIViewController {
         items = DBHandler.sharedInstance.readAll()
         tblView.reloadData()
         guard let count = items?.count else {return}
-        self.title = "Favourites (\(String(count)))"
+        if count > 0{
+            self.title = "Favourites (\(String(count)))"
+        }else{
+            self.title = "Favourites"
+        }
     }
     
 }
@@ -39,7 +43,16 @@ extension FavouritesViewController :  UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let items = items else {return 0}
+        if items?.count == 0 {
+            tblView.isHidden = true
+        }else{
+            tblView.isHidden = false
+        }
+        guard let items = items else {
+            tblView.isHidden = true
+            return 0
+        }
+        
         return items.count
     }
     
@@ -73,7 +86,11 @@ extension FavouritesViewController {
             items = DBHandler.sharedInstance.readAll()
             tblView.reloadData()
             guard let count = items?.count else {return}
-            self.title = "Favourites (\(String(count)))"
+            if count > 0{
+                self.title = "Favourites (\(String(count)))"
+            }else{
+                self.title = "Favourites"
+            }
         }
     }
 }
