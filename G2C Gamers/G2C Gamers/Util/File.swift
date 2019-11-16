@@ -73,21 +73,26 @@ public class DBHandler{
             guard let gameMetacritic = game.metacritic else {return}
             guard let gameImageUrl = game.background_image else {return}
             guard let gameGenres = game.genres else {return}
+            guard let gameFavourite = game.favourite else {return}
             
-            let insert = DBHandler.sharedInstance.games!.insert(id <- gameId, name <- gameName, metacritic <- gameMetacritic, imageUrl <- gameImageUrl, genres <- game.aggregateGenres(genres: gameGenres), favourite <- game.favourite)
+            let insert = DBHandler.sharedInstance.games!.insert(id <- gameId, name <- gameName, metacritic <- gameMetacritic, imageUrl <- gameImageUrl, genres <- Game.aggregateGenres(genres: gameGenres), favourite <- gameFavourite)
             try DBHandler.sharedInstance.db?.run(insert)
         }catch{print("error in writing to db")}
     }
     
     // read from table
-    public func readAll(){
+    public func readAll() -> [Game]{
+        var gamesArr:[Game] = [Game]()
         do{
-            guard let db = DBHandler.sharedInstance.db else {return}
-            let game = try db.prepare("SELECT * FROM games")
-            for row in game {
-                print("id: \(row[0]!), name: \(row[1]!)")
+            guard let db = DBHandler.sharedInstance.db else {return []}
+            let games = try db.prepare("SELECT * FROM games")
+            for row in games {
+                let game = Game(id: row[0]! as? Int, name: row[1]! as? String, metacritic: row[2]! as? Int, background_image: row[3]! as? String, genres: Game.decomposeGeneresString(genresString: row[4]! as! String), favourite:row[5]! as? Bool, description: nil, webUrl: nil, redditUrl:nil)
+                 gamesArr.append(game)
+                print("id: \(row[0]!), name: \(row[1]!), favourite: \(row[5]!)")
             }
         }catch{print("error in reading db")}
+        return gamesArr
     }
     
     // delete from table
@@ -98,6 +103,22 @@ public class DBHandler{
             let game = Table("games").filter(id == idVal)
             try db.run(game.delete())
         }catch{print("error in db row deletion")}
+    }
+    
+    // read favourite of perticuler game
+    public func getPreference(gameId:Int) -> Bool{
+        var prefernce: Bool = false
+        do{
+            let id = Expression<Int>("id")
+            let gamesTable = Table("games")
+            let favGame = gamesTable.filter(id == gameId)
+            guard let sqn = try db?.prepare(favGame) else { return false }
+            let games = Array(sqn)
+            for game in games {
+                prefernce = try game.get(Expression<Bool>("favourite")) ? true : false
+            }
+        }catch{print("error in reading db")}
+        return prefernce
     }
     
     

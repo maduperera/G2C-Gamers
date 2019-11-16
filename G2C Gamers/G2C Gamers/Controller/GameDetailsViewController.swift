@@ -51,6 +51,9 @@ class GameDetailsViewController: UIViewController {
         // remove unwanted cells in the table
         tblDetails.tableFooterView = UIView()
         
+        guard let id = game?.id else {return}
+        preference = isFavourite(id: id) ? Preference.favourite : Preference.unfavourite
+        
         // hide back button till everything loads
         //self.navigationItem.setHidesBackButton(true, animated:true);
         
@@ -114,7 +117,8 @@ class GameDetailsViewController: UIViewController {
         case .unfavourite:
             preference = .favourite
             // write to db
-            guard let game = game else {return}
+            guard var game = game else {return}
+            game.favourite = true
             DBHandler.sharedInstance.writeRow(game: game)
             DBHandler.sharedInstance.readAll()
         case .none:
@@ -187,4 +191,12 @@ extension GameDetailsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     
+}
+
+
+extension GameDetailsViewController{
+    func isFavourite(id:Int) -> Bool{
+        print("favourited: \(DBHandler.sharedInstance.getPreference(gameId: id))")
+        return DBHandler.sharedInstance.getPreference(gameId: id)
+    }
 }
