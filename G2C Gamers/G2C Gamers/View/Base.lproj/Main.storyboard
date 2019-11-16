@@ -297,7 +297,7 @@
                                 <rect key="frame" x="0.0" y="116" width="375" height="502"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="125" id="8oW-BW-fr2" customClass="GameCell" customModule="G2C_Gamers" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavouriteCell" rowHeight="125" id="8oW-BW-fr2" customClass="FavouriteCell" customModule="G2C_Gamers" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8oW-BW-fr2" id="6zx-tW-OtC">
@@ -340,7 +340,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="i5K-qp-qbH" firstAttribute="top" secondItem="575-n7-39t" secondAttribute="bottom" constant="7" id="6Je-l8-4cO"/>
+                                                <constraint firstItem="i5K-qp-qbH" firstAttribute="leading" secondItem="D0K-4N-20N" secondAttribute="trailing" constant="24" id="9qI-cv-iX9"/>
                                                 <constraint firstItem="i5K-qp-qbH" firstAttribute="top" secondItem="Zum-BT-Z9u" secondAttribute="bottom" constant="8" symbolic="YES" id="BMX-BK-yVK"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="i5K-qp-qbH" secondAttribute="trailing" constant="142" id="ClX-YE-QAp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="i5K-qp-qbH" secondAttribute="bottom" constant="17" id="DhX-sz-NOk"/>
                                                 <constraint firstItem="2A4-ol-Xl0" firstAttribute="top" secondItem="6zx-tW-OtC" secondAttribute="topMargin" constant="-1" id="DnX-1t-IA2"/>
                                                 <constraint firstItem="D0K-4N-20N" firstAttribute="leading" secondItem="6zx-tW-OtC" secondAttribute="leadingMargin" constant="-1" id="GZk-V4-Nig"/>
                                                 <constraint firstItem="i5K-qp-qbH" firstAttribute="top" secondItem="575-n7-39t" secondAttribute="bottom" constant="7" id="Tjj-Rl-yIZ"/>
@@ -355,6 +359,12 @@
                                                 <constraint firstItem="2A4-ol-Xl0" firstAttribute="leading" secondItem="Zum-BT-Z9u" secondAttribute="leading" id="uRD-Jf-l20"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="imgThumb" destination="D0K-4N-20N" id="qDi-MO-nAh"/>
+                                            <outlet property="lblGenere" destination="i5K-qp-qbH" id="QAN-3r-RrJ"/>
+                                            <outlet property="lblMetaCriticsCount" destination="575-n7-39t" id="thS-Jb-3PT"/>
+                                            <outlet property="lblTitle" destination="2A4-ol-Xl0" id="Ozk-rb-zEf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -378,7 +388,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Favourites" id="DIB-0R-QnV"/>
                     <connections>
-                        <outlet property="tblView" destination="zIj-C2-E0f" id="9mv-mS-HGq"/>
+                        <outlet property="tblView" destination="zIj-C2-E0f" id="Lic-Tt-79x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfq-i8-SQ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
