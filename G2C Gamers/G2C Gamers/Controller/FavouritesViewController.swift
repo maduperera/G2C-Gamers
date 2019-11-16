@@ -16,10 +16,6 @@ class FavouritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // read all games stored
-        //items = DBHandler.sharedInstance.readAll() //.filter({(game:Game) in game.favourite == true })
-//        print("favouriteItems :\(items)")
-       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,10 +25,8 @@ class FavouritesViewController: UIViewController {
         guard let count = items?.count else {return}
         self.title = "Favourites (\(String(count)))"
     }
-
+    
 }
-
-
 
 extension FavouritesViewController :  UITableViewDelegate, UITableViewDataSource {
     
@@ -78,6 +72,8 @@ extension FavouritesViewController {
             DBHandler.sharedInstance.deleteRow(idVal: id)
             items = DBHandler.sharedInstance.readAll()
             tblView.reloadData()
+            guard let count = items?.count else {return}
+            self.title = "Favourites (\(String(count)))"
         }
     }
 }
