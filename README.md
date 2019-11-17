@@ -3,6 +3,10 @@ One stop for all gamers needs.
 
 # Please open the G2C Gamers.xcworkspace in Xcode in order to run it.
 
+
+Min iOS v 11
+Min swift version 4.2
+
 # How did you decide to use that design and architectural patterns?
 
 I could have used either MVC or MVVM for this as those are the two effecient mobile app design architectures to date. But in this app I went for the most classical MVC architecture where I seperated Controllers, Views and Models. But It's always nice to keep the controller cohesive as much, to handle user interactions while a dedicated viewmodel does the presentaional formating. 
