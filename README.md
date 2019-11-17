@@ -24,7 +24,13 @@ Yes. I spent lot of time pefecting the app and done pretty good QA to handle any
 
 # Do you have any comments to us?
 
-Nothing much. This way of accessing is appreciable.
+I have used thwo third party libraries as they are essential to an app and to prevent re einventing the wheel.
+The two libraries I used are
+1. Networking layer - Moya (https://github.com/Moya/Moya)
+2. Image caching - Kingfisher (https://github.com/onevcat/Kingfisher)
+
+These libraries are MIT licenced and free to be used in our commercial apps.
+Due to the integration of these libraries via cocoa pods please be kind enough to open the G2C Gamers.xcworkspace in Xcode in order to run it.
 
 # What are the things you think are missing or open in this assignment?
 
