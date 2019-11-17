@@ -34,7 +34,23 @@ Nothing much. This way of accessing is appreciable.
 
 These are the only two things that are open in this assignment.
 
+https://user-images.githubusercontent.com/4883128/69006144-25d5f000-0951-11ea-81e4-3814792a2361.png
 
+https://user-images.githubusercontent.com/4883128/69006146-266e8680-0951-11ea-91b8-eed8d6ef57b3.png
+
+https://user-images.githubusercontent.com/4883128/69006147-266e8680-0951-11ea-8838-bad735b90f56.png
+
+https://user-images.githubusercontent.com/4883128/69006148-266e8680-0951-11ea-9f64-a26d842a2e29.png
+
+https://user-images.githubusercontent.com/4883128/69006149-27071d00-0951-11ea-8150-b6d134b30436.png
+
+https://user-images.githubusercontent.com/4883128/69006201-a72d8280-0951-11ea-8ffa-73ee3bc3ee8a.png
+
+https://user-images.githubusercontent.com/4883128/69006202-a72d8280-0951-11ea-9857-3fdc95d8eca3.png
+
+https://user-images.githubusercontent.com/4883128/69006203-a72d8280-0951-11ea-98a8-fc21f87f478b.png
+
+https://user-images.githubusercontent.com/4883128/69006204-a7c61900-0951-11ea-8d11-9cbdb698dbe2.png
 
 
 
